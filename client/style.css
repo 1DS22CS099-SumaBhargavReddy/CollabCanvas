@@ -1,0 +1,366 @@
+:root {
+    --bg-dark: #0f172a;
+    --sidebar-bg: rgba(30, 41, 59, 0.9);
+    --accent: #7c3aed;
+    --accent-hover: #8b5cf6;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+    --danger: #ef4444;
+    --glass: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    /* Mobile First: Vertical Layout */
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Sidebar as Header/Top Bar on Mobile */
+.sidebar {
+    width: 100%;
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-icon {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, var(--accent), #d946ef);
+    border-radius: 6px;
+}
+
+.logo h1 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* Hide labels and non-essential sections on small mobile */
+.tool-section h3,
+.spacer,
+.online-users {
+    display: none;
+}
+
+.tool-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tool-grid {
+    display: flex;
+    gap: 4px;
+}
+
+.tool-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.tool-btn i {
+    font-size: 0.9rem;
+}
+
+.tool-btn.active {
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* Compact color picker and hidden width range on mobile */
+.color-picker-wrapper {
+    display: flex;
+}
+
+#color-picker {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.color-presets {
+    display: none;
+    /* Hide swatches on very small screens */
+}
+
+#width-range {
+    width: 60px;
+}
+
+#width-value {
+    display: none;
+}
+
+.actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text-primary);
+}
+
+/* Main Canvas Area */
+.canvas-container {
+    flex: 1;
+    position: relative;
+    background-color: #e2e8f0;
+    overflow: hidden;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#main-canvas {
+    display: block;
+    cursor: crosshair;
+    background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 8px solid #1e293b;
+    border-radius: 4px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Status Bar Mobile */
+.status-bar {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(4px);
+    padding: 4px 10px;
+    border-radius: 12px;
+    display: flex;
+    gap: 12px;
+    font-size: 0.65rem;
+    pointer-events: none;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+}
+
+.remote-cursor {
+    position: absolute;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+    z-index: 50;
+}
+
+.cursor-pointer {
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid white;
+    border-radius: 50%;
+}
+
+.cursor-label {
+    position: absolute;
+    left: 12px;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.6rem;
+}
+
+/* --- Media Queries for Desktop --- */
+@media (min-width: 768px) {
+    #app {
+        flex-direction: row;
+        /* Horizontal Layout on Desktop */
+    }
+
+    .sidebar {
+        width: 280px;
+        height: 100vh;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 32px 24px;
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+        gap: 32px;
+    }
+
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .logo h1 {
+        font-size: 1.25rem;
+    }
+
+    .tool-section h3,
+    .spacer,
+    .online-users,
+    .color-presets,
+    #width-value {
+        display: block;
+    }
+
+    .tool-section {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .tool-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+    }
+
+    .tool-btn {
+        width: 100%;
+        aspect-ratio: 1;
+        height: auto;
+    }
+
+    .tool-btn i {
+        font-size: 1.1rem;
+    }
+
+    .color-picker-wrapper {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    #color-picker {
+        width: 100%;
+        height: 40px;
+        border-radius: 8px;
+    }
+
+    .color-presets {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
+    }
+
+    .color-swatch {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #width-range {
+        width: 100%;
+    }
+
+    .actions {
+        flex-direction: column;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .action-btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 0.875rem;
+    }
+
+    .canvas-container {
+        padding: 40px;
+    }
+
+    #main-canvas {
+        border-width: 16px;
+        border-radius: 8px;
+    }
+
+    .status-bar {
+        padding: 8px 16px;
+        font-size: 0.75rem;
+        bottom: 24px;
+        right: 24px;
+        pointer-events: auto;
+    }
+
+    .online-users {
+        width: 100%;
+    }
+
+    .user-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .user-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.85rem;
+    }
+
+    .user-color-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+}

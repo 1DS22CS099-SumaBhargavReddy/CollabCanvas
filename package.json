@@ -1,0 +1,18 @@
+{
+  "name": "collaborative-drawing-canvas",
+  "version": "1.0.0",
+  "description": "A real-time collaborative drawing application.",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
+    "client": "browser-sync start --server 'client' --files 'client/**/*'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

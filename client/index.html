@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CollabCanvas | Real-Time Collaborative Drawing</title>
+    <meta name="description"
+        content="Draw together in real-time with CollabCanvas. A high-performance collaborative whiteboard.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Sidebar / Header Controls -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>CollabCanvas</h1>
+            </div>
+
+            <div class="tool-section">
+                <h3>Tools</h3>
+                <div class="tool-grid">
+                    <button id="tool-brush" class="tool-btn active" title="Brush">
+                        <i class="fa-solid fa-paintbrush"></i>
+                    </button>
+                    <button id="tool-eraser" class="tool-btn" title="Eraser">
+                        <i class="fa-solid fa-eraser"></i>
+                    </button>
+                    <button id="tool-undo" class="tool-btn" title="Undo">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                    <button id="tool-redo" class="tool-btn" title="Redo">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>Color</h3>
+                <div class="color-picker-wrapper">
+                    <input type="color" id="color-picker" value="#7c3aed">
+                    <div class="color-presets">
+                        <button class="color-swatch" style="background: #ef4444" data-color="#ef4444"></button>
+                        <button class="color-swatch" style="background: #f59e0b" data-color="#f59e0b"></button>
+                        <button class="color-swatch" style="background: #10b981" data-color="#10b981"></button>
+                        <button class="color-swatch" style="background: #3b82f6" data-color="#3b82f6"></button>
+                        <button class="color-swatch" style="background: #8b5cf6" data-color="#8b5cf6"></button>
+                        <button class="color-swatch" style="background: #ffffff" data-color="#ffffff"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>Width</h3>
+                <div class="range-wrapper">
+                    <input type="range" id="width-range" min="1" max="50" value="5">
+                    <span id="width-value">5px</span>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="online-users">
+                <h3>Online Users</h3>
+                <ul id="user-list" class="user-list">
+                    <!-- Users injected here -->
+                </ul>
+            </div>
+
+            <div class="actions">
+                <button id="clear-btn" class="action-btn danger">Clear</button>
+                <button id="download-btn" class="action-btn">Save</button>
+            </div>
+        </aside>
+
+        <!-- Main Canvas Area -->
+        <main class="canvas-container">
+            <canvas id="main-canvas"></canvas>
+            <div id="cursors-layer"></div>
+        </main>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <span id="connection-dot" class="status-dot"></span>
+                <span id="connection-status">Connecting...</span>
+            </div>
+            <div class="status-item" id="latency-display">Latency: --ms</div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="main.js" type="module"></script>
+</body>
+
+</html>
